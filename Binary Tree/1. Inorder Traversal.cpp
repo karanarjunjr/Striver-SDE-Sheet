@@ -5,19 +5,18 @@ public:
     vector<int> ans;
     vector<int> inorderTraversal(TreeNode* root) {
         if (!root) return ans;
-        stack<TreeNode*> st;
-        st.push(root);
-
+        stack<TreeNode> st;
+        st.push(*root);
+        
         while(!st.empty()) {
-            TreeNode temp = *st.top();
-            cout << temp.val << endl;
-            if (temp.left == nullptr) {
+            TreeNode temp = st.top();
+            if (!temp.left) {
                 st.pop();
                 ans.push_back(temp.val);
-                if (temp.right != nullptr) st.push(temp.right);
+                if (temp.right) st.push(*temp.right);
             } else {
-                st.top()->left = nullptr;
-                st.push(temp.left);
+                st.top().left = nullptr;
+                st.push(*temp.left);
             }
         }
         
